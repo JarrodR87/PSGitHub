@@ -17,10 +17,14 @@ function Invoke-GitHubRepoQuery {
     ) 
     BEGIN { 
         $GitHubAuthenticationHeader = New-GitHubAuthenticationHeader -GitHubToken $GitHubToken
+
+        $Body = @{"per_page"="100";
+       }
+
     } #BEGIN
 
     PROCESS {
-        $Response = Invoke-RestMethod -Headers $GitHubAuthenticationHeader -Uri https://api.github.com/user/repos
+        $Response = Invoke-RestMethod -Headers $GitHubAuthenticationHeader -Uri https://api.github.com/user/repos -Body $Body
     } #PROCESS
 
     END { 
